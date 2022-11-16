@@ -11,7 +11,7 @@ class Person
 
   attr_reader :id
 
-  def is_of_age
+  def of_age
     if @age >= 18
       return true
     end
