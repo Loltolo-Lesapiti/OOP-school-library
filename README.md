@@ -2,7 +2,7 @@
 
 # Project Name
 
-> In this project, we demonstrated the use of modules and classes in Ruby. For this we will created a class MyList and a module MyEnumerable.The module MyEnumerable was used to implement a subset of the functionality of Enumerable.
+> In this project, I started building a school library app. In this initial step, I created classes to represent the person class as the main interface and other classes that represent students and teachers to extend the person class.
 
 ## Built With
 
@@ -35,12 +35,6 @@ To get a local copy up and running follow these simple example steps.
 ## Authors
 
 👤 **Author1**
-
-👤 **George William Kidde**
-
-- Github: [@kidde60](https://github.com/kidde60)
-- Twitter: [@KGWilliam60](https://twitter.com/KGWilliam60)
-- Linkedin: [Linkedin](https://www.linkedin.com/in/kidde-george-william/)
 
 👤 **Petro Loltolo Lesapiti**
 
