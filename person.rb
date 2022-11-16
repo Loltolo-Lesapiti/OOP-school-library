@@ -6,21 +6,16 @@ class Person
     @age = age
   end
 
-  attr_accessor :name
-  attr_accessor :age
-
+  attr_accessor :name, :age
   attr_reader :id
 
-  def of_age
-    if @age >= 18
-      return true
-    end
+  def of_age?
+    @age >= 18
   end
 
-  def can_use_services
-    if @is_of_age || @parent_permission
-      return true
-    end
+  def can_use_services?
+    @is_of_age || @parent_permission
+    true
   end
   private :is_of_age
 end
