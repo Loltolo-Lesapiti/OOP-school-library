@@ -36,7 +36,7 @@ To get a local copy up and running follow these simple example steps.
 
 👤 **Author1**
 
-👤 **Petro Loltolo Lesapiti**
+👤 **Petro Loltolo Lesapiti.**
 
 - GitHub: [@petrolesapiti](https://github.com/Loltolo-Lesapiti)
 - LinkedIn: [@petrolesapiti](https://www.linkedin.com/in/petrolesapitiloltolo/)
