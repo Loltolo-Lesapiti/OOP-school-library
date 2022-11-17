@@ -2,7 +2,7 @@
 
 # Project Name
 
-> In this project, I started building a school library app. In this initial step, I created classes to represent the person class as the main interface and other classes that represent students and teachers to extend the person class.
+> In this project, I used use the Decorator design pattern to correct the names of people.
 
 ## Built With
 
