@@ -2,7 +2,7 @@
 
 # Project Name
 
-> In this project, I used use the Decorator design pattern to correct the names of people.
+> In this project, I finish creating the remaining classes for the school library and created the associations between them.
 
 ## Built With
 
