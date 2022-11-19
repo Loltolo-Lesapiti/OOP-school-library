@@ -26,11 +26,10 @@ class App
     puts '7 - List of books rented by a student '
     puts '8 - Exit'
 
-    # rubocop:disable Metrics/CyclomaticComplexity
     options
-    # rubocop:enable Metrics/CyclomaticComplexity
   end
 
+  # rubocop:disable Metrics/CyclomaticComplexity
   def options
     option = gets.chomp
     case option
@@ -53,6 +52,7 @@ class App
       exit 0
     end
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 
   # Create and get a book
   def create_book
@@ -62,7 +62,7 @@ class App
     print 'Enter Author: '
     author = gets.chomp
     @books << Book.new(title, author)
-    puts title + ' by ' + author + ' was successfully added'
+    puts "#{title} by #{author}  was successfully added"
     ui
   end
 
@@ -78,12 +78,12 @@ class App
     puts 'Enter the age'
     age = gets.chomp
     @students << Student.new(age, name)
-    puts name + ' aged ' + age + ' was successfully added'
+    puts "{#name}  aged #{age}  was successfully added"
     ui
   end
 
   def list_people
-    @students.map { |student| puts 'Student name: #{student.name}, age: #{student.age}' }
+    @students.map { |student| puts "Student name: #{student.name}, age: #{student.age}" }
     ui
   end
 
@@ -119,7 +119,7 @@ class App
       if rental.person.name == name
         puts "Date: #{rental.date}, Book: #{rental.book.title}"
       else
-        puts 'No Books rented by ' + name
+        puts "No Books rented by: #{name}"
       end
     end
     ui
