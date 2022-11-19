@@ -2,7 +2,7 @@
 
 # Project Name
 
-> In this project, I finish creating the remaining classes for the school library and created the associations between them.
+> In this project, I created a form of UI for the school library app. This way it can be invoked as an executable and not something you use in IRB exclusively. I created methods to prompt the user to enter requested and the requests processed and feeback displayed.
 
 ## Built With
 
