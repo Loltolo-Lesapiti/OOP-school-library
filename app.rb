@@ -8,7 +8,7 @@ require './rental'
 class App
   def initialize
     @books = []
-    @students = []
+    @people = []
     @rentals = []
   end
 
@@ -73,17 +73,42 @@ class App
 
   # Create and list person.
   def create_person
+    print 'Enter 1 to create a student and 2 to create a teacher: '
+    person_type = gets.chomp
+    case person_type
+    when '1'
+      create_student
+    when '2'
+      create_teacher
+    else
+      puts 'That is not a valid input'
+    end
+  end
+
+  def create_student
     puts 'Enter the Name'
     name = gets.chomp
     puts 'Enter the age'
     age = gets.chomp
-    @students << Student.new(age, name)
+    @people << Student.new(age, name)
     puts "{#name}  aged #{age}  was successfully added"
     ui
   end
 
+  def create_teacher
+    puts 'Enter the Name'
+    name = gets.chomp
+    puts 'Enter the age'
+    age = gets.chomp
+    puts 'Enter the specialization'
+    specialization = gets.chomp
+    @people << Teacher.new(age, name, specialization)
+    puts "#{name}  aged #{age}  was successfully added"
+    ui
+  end
+
   def list_people
-    @students.map { |student| puts "Student name: #{student.name}, age: #{student.age}" }
+    @people.map { |person| puts "Person name: #{person.name}, age: #{person.age}" }
     ui
   end
 
@@ -95,13 +120,13 @@ class App
     end
     book_index = gets.chomp
     puts 'Select a student from the list below'
-    @students.each_with_index do |student, index|
+    @people.each_with_index do |student, index|
       puts "#{index}) Name: #{student.name}, Age: #{student.age}"
     end
     person_index = gets.chomp
     print 'Date: '
     date = gets.chomp
-    @rentals << Rental.new(date, @books[book_index.to_i], @students[person_index.to_i])
+    @rentals << Rental.new(date, @books[book_index.to_i], @people[person_index.to_i])
     puts 'Rental Added'
     ui
   end
