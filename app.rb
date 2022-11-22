@@ -5,17 +5,15 @@ require './classroom'
 require './book'
 require './rental'
 
-
 class App
   attr_reader :people, :rentals, :books
+
   def initialize
     @people = []
     @rentals = []
-    @books=[]
-
+    @books = []
   end
 
-  # rubocop:disable Metrics/CyclomaticComplexity
   def start_console
     puts '*****Welcome to Taas school Libary!*****'
     until list_of_options
@@ -28,23 +26,22 @@ class App
     end
   end
 
-# rubocop:enable Metrics/CyclomaticComplexity
-# Create a book.
-def create_book
-  print 'Enter Title: '
-  title = gets.chomp
+  # Create a book.
+  def create_book
+    print 'Enter Title: '
+    title = gets.chomp
 
-  print 'Enter Author: '
-  author = gets.chomp
-  book=Book.new(title, author)
-  @books << book
-  puts "#{title} by #{author}  was successfully added"
-end
+    print 'Enter Author: '
+    author = gets.chomp
+    book = Book.new(title, author)
+    @books << book
+    puts "#{title} by #{author}  was successfully added"
+  end
 
-#List books
-def list_books
-  @books.map { |book| puts "Book Title: #{book.title}, Author name: #{book.author}" }
-end
+  # List books
+  def list_books
+    @books.map { |book| puts "Book Title: #{book.title}, Author name: #{book.author}" }
+  end
 
   # Create and list person.
   def create_person
@@ -81,7 +78,7 @@ end
     puts 'Enter the age'
     age = gets.chomp.to_i
     parent_permission = permission?
-    @people << Student.new(age, name,parent_permission)
+    @people << Student.new(age, name, parent_permission)
     puts "#{name}  aged #{age}  was successfully added"
   end
 
