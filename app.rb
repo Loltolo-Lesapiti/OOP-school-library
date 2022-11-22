@@ -5,59 +5,46 @@ require './classroom'
 require './book'
 require './rental'
 
+
 class App
-  attr_reader :people, :rentals
+  attr_reader :people, :rentals, :books
   def initialize
     @people = []
     @rentals = []
+    @books=[]
 
-  end
-
-  # User interaction point UI.
-  def ui
-    puts '*****Welcome to Taas school Libary!*****'
-
-    puts 'Choose an option below to proceed:'
-    puts '1 - List all books'
-    puts '2 - List people'
-    puts '3 - Create a person'
-    puts '4 - Create a book'
-    puts '5 - Create a rental'
-    puts '6 - List all rentals '
-    puts '7 - List of books rented by a student '
-    puts '8 - Exit'
-
-    options
   end
 
   # rubocop:disable Metrics/CyclomaticComplexity
-  def options
-    option = gets.chomp
-    case option
-    when '1'
-      ManageBook.new().list_books
-      ui
-    when '2'
-      list_people
-    when '3'
-      create_person
-    when '4'
-      ManageBook.new().create_book
-      ui
-    when '5'
-      create_rental
-    when '6'
-      list_rentals
-    when '7'
-      list_student_books
-    when '8'
-      puts 'Thank you for using this app!'
-      exit 0
+  def start_console
+    puts '*****Welcome to Taas school Libary!*****'
+    until list_of_options
+      input = gets.chomp
+      if input == '8'
+        puts 'Thank You for using my School Library!'
+        break
+      end
+      option input
     end
   end
-  # rubocop:enable Metrics/CyclomaticComplexity
 
-  # Create and get a book
+# rubocop:enable Metrics/CyclomaticComplexity
+# Create a book.
+def create_book
+  print 'Enter Title: '
+  title = gets.chomp
+
+  print 'Enter Author: '
+  author = gets.chomp
+  book=Book.new(title, author)
+  @books << book
+  puts "#{title} by #{author}  was successfully added"
+end
+
+#List books
+def list_books
+  @books.map { |book| puts "Book Title: #{book.title}, Author name: #{book.author}" }
+end
 
   # Create and list person.
   def create_person
@@ -73,31 +60,44 @@ class App
     end
   end
 
+  def permission?
+    print 'Has parent permission? [Y/N]:'
+    permission = gets.chomp
+
+    case permission.downcase
+    when 'y'
+      true
+    when 'n'
+      false
+    else
+      puts 'Invalid input'
+      permission?
+    end
+  end
+
   def create_student
     puts 'Enter the Name'
     name = gets.chomp
     puts 'Enter the age'
-    age = gets.chomp
-    @people << Student.new(age, name)
-    puts "{#name}  aged #{age}  was successfully added"
-    ui
+    age = gets.chomp.to_i
+    parent_permission = permission?
+    @people << Student.new(age, name,parent_permission)
+    puts "#{name}  aged #{age}  was successfully added"
   end
 
   def create_teacher
     puts 'Enter the Name'
     name = gets.chomp
     puts 'Enter the age'
-    age = gets.chomp
+    age = gets.chomp.to_i
     puts 'Enter the specialization'
     specialization = gets.chomp
     @people << Teacher.new(age, name, specialization)
     puts "#{name}  aged #{age}  was successfully added"
-    ui
   end
 
   def list_people
     @people.map { |person| puts "Person name: #{person.name}, age: #{person.age}" }
-    ui
   end
 
   # Create and list rentals
@@ -116,12 +116,10 @@ class App
     date = gets.chomp
     @rentals << Rental.new(date, @books[book_index.to_i], @people[person_index.to_i])
     puts 'Rental Added'
-    ui
   end
 
   def list_rentals
     @rentals.each { |rental| puts "Date: #{rental.date}, Book: #{rental.book.title} by #{rental.book.author}" }
-    ui
   end
 
   def list_student_books
@@ -135,6 +133,5 @@ class App
         puts "No Books rented by: #{name}"
       end
     end
-    ui
   end
 end
