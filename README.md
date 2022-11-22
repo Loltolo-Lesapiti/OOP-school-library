@@ -2,7 +2,8 @@
 
 # Project Name
 
-> In this project, I created a form of UI for the school library app. This way it can be invoked as an executable and not something you use in IRB exclusively. I created methods to prompt the user to enter requested and the requests processed and feeback displayed.
+> In this project, we refactored the OOP school library code.
+
 
 ## Built With
 
@@ -40,6 +41,11 @@ To get a local copy up and running follow these simple example steps.
 
 - GitHub: [@petrolesapiti](https://github.com/Loltolo-Lesapiti)
 - LinkedIn: [@petrolesapiti](https://www.linkedin.com/in/petrolesapitiloltolo/)
+
+👤**Elie Harfouche**
+
+- GitHub: [@X-Elie-X](https://github.com/X-Elie-X)
+- LinkedIn: [Elie Harfouche](https://www.linkedin.com/in/elie-m-harfouche/)
 
 ## 🤝 Contributing
 
