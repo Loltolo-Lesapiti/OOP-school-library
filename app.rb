@@ -6,10 +6,11 @@ require './book'
 require './rental'
 
 class App
+  attr_reader :people, :rentals
   def initialize
-    @books = []
     @people = []
     @rentals = []
+
   end
 
   # User interaction point UI.
@@ -34,13 +35,15 @@ class App
     option = gets.chomp
     case option
     when '1'
-      list_books
+      ManageBook.new().list_books
+      ui
     when '2'
       list_people
     when '3'
       create_person
     when '4'
-      create_book
+      ManageBook.new().create_book
+      ui
     when '5'
       create_rental
     when '6'
@@ -55,21 +58,6 @@ class App
   # rubocop:enable Metrics/CyclomaticComplexity
 
   # Create and get a book
-  def create_book
-    print 'Enter Title: '
-    title = gets.chomp
-
-    print 'Enter Author: '
-    author = gets.chomp
-    @books << Book.new(title, author)
-    puts "#{title} by #{author}  was successfully added"
-    ui
-  end
-
-  def list_books
-    @books.map { |book| puts "Book Title: #{book.title}, Author name: #{book.author}" }
-    ui
-  end
 
   # Create and list person.
   def create_person
