@@ -4,18 +4,19 @@ require './teacher'
 require './classroom'
 require './book'
 require './rental'
-
+require_relative './store'
+require 'json'
 class App
   attr_reader :people, :rentals, :books
 
   def initialize
-    @people = []
-    @rentals = []
-    @books = []
+    @people_info = Data.new('person')
+    @rentals_info = Data.new('rental')
+    @books_info = Data.new('books')
   end
 
   def start_console
-    puts '*****Welcome to Taas school Libary!*****'
+    puts '*****Welcome to Taas school Library!*****'
     until list_of_options
       input = gets.chomp
       if input == '8'
