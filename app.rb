@@ -14,12 +14,12 @@ class App
     @people_info = Store.new('person')
     @rentals_info = Store.new('rental')
     @books_info = Store.new('books')
-    @books = @books_info.read.map{|arr| Book.new(arr['title'],arr['author'])}
-    @people=@people_info.read.map do |arr|
+    @books = @books_info.read.map { |arr| Book.new(arr['title'], arr['author']) }
+    @people = @people_info.read.map do |arr|
       if arr['class'].include?('Student')
-        Student.new(arr['age'],arr['name'],arr['parent_permission'],arr['classroom'])
-        else
-          Teacher.new(arr['age'],arr['name'],arr['specialization'])
+        Student.new(arr['age'], arr['name'], arr['parent_permission'], arr['classroom'])
+      else
+        Teacher.new(arr['age'], arr['name'], arr['specialization'])
       end
     end
     @rentals = @rentals_info.read.map do |arr|
@@ -33,11 +33,7 @@ class App
     puts '*****Welcome to Taas school Library!*****'
     until list_of_options
       input = gets.chomp
-      if input == '8'
-        exit
-        puts 'Thank You for using my School Library!'
-        break
-      end
+      exit if input == '8'
       option input
     end
   end
@@ -56,7 +52,7 @@ class App
 
   # List books
   def list_books
-    @books_info =  @books.map { |book| puts "Book Title: #{book.title}, Author name: #{book.author}" }
+    @books_info = @books.map { |book| puts "Book Title: #{book.title}, Author name: #{book.author}" }
   end
 
   # Create and list person.
@@ -147,10 +143,10 @@ class App
       end
     end
   end
+
   def exit
     @books_info.write(@books.map(&:create_object))
     @people_info.write(@people.map(&:create_object))
     @rentals_info.write(@rentals.map(&:create_object))
   end
-
 end

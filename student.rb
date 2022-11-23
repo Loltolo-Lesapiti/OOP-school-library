@@ -2,7 +2,7 @@ require_relative 'person'
 class Student < Person
   attr_reader :classroom
 
-  def initialize(age, name, parent_permission,classroom = [])
+  def initialize(age, name, parent_permission, classroom = [])
     super(age, name, parent_permission: parent_permission)
     @classroom = classroom
   end
@@ -15,6 +15,7 @@ class Student < Person
     @classroom = classroom
     classroom.students.push(self) unless classroom.students.include?(self)
   end
+
   def create_object
     super()
     object_data = @object_data
@@ -23,5 +24,4 @@ class Student < Person
     object_data[:parent_permission] = @parent_permission
     object_data
   end
-
 end
