@@ -8,6 +8,7 @@ class Teacher < Person
   def can_use_services?
     true
   end
+
   def create_object
     super()
     object_data = @object_data
@@ -15,5 +16,4 @@ class Teacher < Person
     object_data[:class] = 'Teacher'
     object_data
   end
-
 end
