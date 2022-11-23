@@ -19,6 +19,10 @@ class Person < Nameable
   def correct_name
     @name
   end
+  def create_object
+    object_data = { age: @age, name: @name, id: @id }
+    @object_data = object_data
+  end
 
   def of_age?
     @age >= 18
