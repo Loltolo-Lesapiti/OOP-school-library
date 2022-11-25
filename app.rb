@@ -22,7 +22,7 @@ class App
         Teacher.new(arr['age'], arr['name'], arr['specialization'])
       end
     end
-    @rentals =[]
+    @rentals = []
   end
 
   def start_console
@@ -109,7 +109,7 @@ class App
     @people.map { |person| puts "Person name: #{person.name}, age: #{person.age}" }
   end
 
-  #Create and list rentals
+  # Create and list rentals
   def create_rental
     puts 'Select a book'
     @books.each_with_index do |book, index|
@@ -123,7 +123,7 @@ class App
     person_index = gets.chomp
     print 'Date: '
     date = gets.chomp
-    @rentals << Rental.new( @books[book_index.to_i], @people[person_index.to_i],date)
+    @rentals << Rental.new(@books[book_index.to_i], @people[person_index.to_i], date)
     puts 'Rental Added'
   end
 
