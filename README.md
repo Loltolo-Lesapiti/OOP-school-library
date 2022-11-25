@@ -1,6 +1,6 @@
 ![](https://img.shields.io/badge/Microverse-blueviolet)
 
-# Project Name
+# OOP School Library
 
 > In this project, we refactored the OOP school library code.
 
