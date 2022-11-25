@@ -22,18 +22,18 @@ class App
         Teacher.new(arr['age'], arr['name'], arr['specialization'])
       end
     end
-    @rentals = @rentals_info.read.map do |arr|
-      book = @books.select { |bk| bk.title == arr['book_title'] }[0]
-      person = @people.select { |pers| pers.id == arr['person_id'] }[0]
-      Rental.new(book, person, arr['date'])
-    end
+    @rentals =[]
   end
 
   def start_console
     puts '*****Welcome to Taas school Library!*****'
     until list_of_options
       input = gets.chomp
-      exit if input == '8'
+      if input == '8'
+        puts 'Thank You for using my School Library!'
+        break
+      end
+
       option input
     end
   end
@@ -109,7 +109,7 @@ class App
     @people.map { |person| puts "Person name: #{person.name}, age: #{person.age}" }
   end
 
-  # Create and list rentals
+  #Create and list rentals
   def create_rental
     puts 'Select a book'
     @books.each_with_index do |book, index|
@@ -123,7 +123,7 @@ class App
     person_index = gets.chomp
     print 'Date: '
     date = gets.chomp
-    @rentals << Rental.new(date, @books[book_index.to_i], @people[person_index.to_i])
+    @rentals << Rental.new( @books[book_index.to_i], @people[person_index.to_i],date)
     puts 'Rental Added'
   end
 
