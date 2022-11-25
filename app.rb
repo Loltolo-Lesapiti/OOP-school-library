@@ -1,17 +1,31 @@
-require './person'
+require_relative './person'
 require './student'
 require './teacher'
 require './classroom'
 require './book'
 require './rental'
-
+require_relative './store'
+require 'json'
 class App
   attr_reader :people, :rentals, :books
 
   def initialize
-    @people = []
-    @rentals = []
-    @books = []
+    @people_info = Store.new('person')
+    @rentals_info = Store.new('rental')
+    @books_info = Store.new('books')
+    @books = @books_info.read.map { |arr| Book.new(arr['title'], arr['author']) }
+    @people = @people_info.read.map do |arr|
+      if arr['class'].include?('Student')
+        Student.new(arr['age'], arr['name'], arr['parent_permission'], arr['classroom'])
+      else
+        Teacher.new(arr['age'], arr['name'], arr['specialization'])
+      end
+    end
+    @rentals = @rentals_info.read.map do |arr|
+      book = @books.select { |bk| bk.title == arr['book_title'] }
+      person = @people.select { |pers| pers.id == arr['person_id'] }
+      Rental.new(book, person, arr['date'])
+    end
   end
 
   def start_console
@@ -19,6 +33,7 @@ class App
     until list_of_options
       input = gets.chomp
       if input == '8'
+        exit 
         puts 'Thank You for using my School Library!'
         break
       end
@@ -40,7 +55,7 @@ class App
 
   # List books
   def list_books
-    @books.map { |book| puts "Book Title: #{book.title}, Author name: #{book.author}" }
+    @books_info =  @books.map { |book| puts "Book Title: #{book.title}, Author name: #{book.author}" }
   end
 
   # Create and list person.
@@ -130,5 +145,10 @@ class App
         puts "No Books rented by: #{name}"
       end
     end
+  end
+  def exit
+    @books_info.write(@books.map(&:create_object))
+    @people_info.write(@people.map(&:create_object))
+    @rentals_info.write(@rentals.map(&:create_object))
   end
 end
