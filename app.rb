@@ -4,7 +4,7 @@ require './teacher'
 require './classroom'
 require './book'
 require './rental'
-require_relative './store'
+require './store'
 require 'json'
 class App
   attr_reader :people, :rentals, :books
@@ -22,9 +22,9 @@ class App
       end
     end
     @rentals = @rentals_info.read.map do |arr|
-      book = @books.select { |bk| bk.title == arr['book_title'] }
-      person = @people.select { |pers| pers.id == arr['person_id'] }
-      Rental.new(book, person, arr['date'])
+      # book = @books.select { |bk| bk.title == arr['book_title'] }
+      # person = @people.select { |pers| pers.id == arr['person_id'] }
+      Rental.new(arr['date'], @books[0], @people[0])
     end
   end
 
@@ -32,11 +32,13 @@ class App
     puts '*****Welcome to Taas school Libary!*****'
     until list_of_options
       input = gets.chomp
+      # rubocop:disable Lint/UnreachableCode
       if input == '8'
-        exit 
         puts 'Thank You for using my School Library!'
+        exit
         break
       end
+      # rubocop:enable Lint/UnreachableCode
       option input
     end
   end
@@ -55,7 +57,7 @@ class App
 
   # List books
   def list_books
-    @books_info =  @books.map { |book| puts "Book Title: #{book.title}, Author name: #{book.author}" }
+    @books_info = @books.map { |book| puts "Book Title: #{book.title}, Author name: #{book.author}" }
   end
 
   # Create and list person.
@@ -146,6 +148,7 @@ class App
       end
     end
   end
+
   def exit
     @books_info.write(@books.map(&:create_object))
     @people_info.write(@people.map(&:create_object))

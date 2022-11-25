@@ -1,6 +1,5 @@
 class Rental
-  attr_reader :book, :person
-  attr_accessor :date
+  attr_accessor :date, :book, :person
 
   def initialize(date, book, person)
     @date = date
@@ -12,6 +11,6 @@ class Rental
   end
 
   def create_object
-    { book_title: @book.title, person_id: @person, date: @date }
+    { book_title: @book.title, person_id: @person.id, date: @date }
   end
 end

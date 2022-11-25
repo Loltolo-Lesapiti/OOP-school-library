@@ -1,7 +1,7 @@
 require_relative 'nameable'
 class Person < Nameable
-  attr_reader :rentals, :id
-  attr_accessor :name, :age
+  attr_reader :id
+  attr_accessor :name, :age, :rentals
 
   def initialize(age, name = 'unkown', parent_permission: true)
     super()
@@ -19,10 +19,12 @@ class Person < Nameable
   def correct_name
     @name
   end
+
   def create_object
     object_data = { age: @age, name: @name, id: @id }
     @object_data = object_data
   end
+
   def of_age?
     @age >= 18
   end
