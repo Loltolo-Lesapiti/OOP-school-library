@@ -1,27 +1,39 @@
-require './person'
+require_relative './person'
 require './student'
 require './teacher'
 require './classroom'
 require './book'
 require './rental'
+require_relative './store'
+require 'json'
 
 class App
   attr_reader :people, :rentals, :books
 
   def initialize
-    @people = []
+    @people_info = Store.new('person')
+    @rentals_info = Store.new('rental')
+    @books_info = Store.new('books')
+    @books = @books_info.read.map { |arr| Book.new(arr['title'], arr['author']) }
+    @people = @people_info.read.map do |arr|
+      if arr['class'].include?('Student')
+        Student.new(arr['age'], arr['name'], arr['parent_permission'], arr['classroom'])
+      else
+        Teacher.new(arr['age'], arr['name'], arr['specialization'])
+      end
+    end
     @rentals = []
-    @books = []
   end
 
   def start_console
-    puts '*****Welcome to Taas school Libary!*****'
+    puts '*****Welcome to Taas school Library!*****'
     until list_of_options
       input = gets.chomp
       if input == '8'
         puts 'Thank You for using my School Library!'
         break
       end
+
       option input
     end
   end
@@ -40,7 +52,7 @@ class App
 
   # List books
   def list_books
-    @books.map { |book| puts "Book Title: #{book.title}, Author name: #{book.author}" }
+    @books_info = @books.map { |book| puts "Book Title: #{book.title}, Author name: #{book.author}" }
   end
 
   # Create and list person.
@@ -111,7 +123,7 @@ class App
     person_index = gets.chomp
     print 'Date: '
     date = gets.chomp
-    @rentals << Rental.new(date, @books[book_index.to_i], @people[person_index.to_i])
+    @rentals << Rental.new(@books[book_index.to_i], @people[person_index.to_i], date)
     puts 'Rental Added'
   end
 
@@ -130,5 +142,11 @@ class App
         puts "No Books rented by: #{name}"
       end
     end
+  end
+
+  def exit
+    @books_info.write(@books.map(&:create_object))
+    @people_info.write(@people.map(&:create_object))
+    @rentals_info.write(@rentals.map(&:create_object))
   end
 end
